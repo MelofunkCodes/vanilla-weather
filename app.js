@@ -19,8 +19,6 @@ function getCoordinatesForCity(cityName){
 
 	// cityWeather.innerText = "Weather in " + cityName + ": ";
 
-	cityWeather.innerText = "loading...";
-
 	return (
 		fetch(url) //returns promise for a Response
 		.then(response => response.json()) //Returns promise for the parsed JSON
@@ -33,7 +31,7 @@ function getCurrentWeather(coords){
 	//Using template strings!
 	var url = `${CORS_PROXY}${DARKSKY_API_URL}${DARKSKY_API_KEY}/${coords.lat},${coords.lng}?units=si&exclude=minutely,hourly,daily,alerts,flags`;
 
-	return ( //why are the fetch promise chains enclosed in brackets??????
+	return ( //fetch promise enclosed in brackets so you can make chain look nice on next line break. Wo brackets, Node REPL will run, but there will be error on browser
 		fetch(url)
 		.then(response => response.json())
 		.then(data => data.currently)
@@ -41,6 +39,19 @@ function getCurrentWeather(coords){
 
 }
 
+//TO DO LATER
+// function getSkycon(icon){
+// 	// convert clear-day to "CLEAR_DAY"
+	
+// 	Logic
+// 	1. Take string argument, and separate/splice it based on hyphens into an array
+// 	2. map to new array variable .toUpperCase()
+// 	3. Join to new variable with underscore
+// 	4. Return that value
+	
+
+
+// }
 //=================================WIRING TO THE DOM===============================================
 var app = document.querySelector('#app');
 var cityForm = app.querySelector('.city-form');
@@ -67,10 +78,36 @@ cityForm.addEventListener('submit', function(event){
 
 	var city = cityInput.value;
 
+	cityWeather.innerText = "loading...";
+
 	getCoordinatesForCity(city)
 	.then(getCurrentWeather)
 	.then(function(weather){
-		cityWeather.innerText = 'Current temperature: ' + weather.temperature + '\xB0C';
+		console.log(weather);
+
+		cityWeather.innerText = "";
+
+		var temperature = document.createElement('p');
+		temperature.innerText = `Current temperature: ${weather.temperature}\xB0C`;
+
+		console.log(`weather.icon: ${weather.icon}`); //string
+		var icon = document.createElement('p');
+		icon.innerText = `(display Climacons here) ${weather.icon}`;
+
+		var windSpeed = document.createElement('p');
+		windSpeed.innerText = `Wind Speed: ${weather.windSpeed} m/s`;
+
+		var humidity = document.createElement('p');
+		humidity.innerText = `Humidity: ${weather.humidity}`;
+
+		var weatherData = [temperature, icon, windSpeed, humidity];
+
+		weatherData.forEach(function(data){
+			app.appendChild(data);
+		});
+
+
+		// cityWeather.innerText = 'Current temperature: ' + weather.temperature + '\xB0C';
 	});
 })
 

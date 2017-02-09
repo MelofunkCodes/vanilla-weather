@@ -22,8 +22,14 @@ function getCoordinatesForCity(cityName){
 	return (
 		fetch(url) //returns promise for a Response
 		.then(response => response.json()) //Returns promise for the parsed JSON
-		.then(data => data.results[0].geometry.location)	//Transform the response to only send back an object with lat and lng coordinates
-		);
+		.then(function(data){
+			var coordinates = data.results[0].geometry.location;
+
+			location =  data.results[0].formatted_address;
+
+			return coordinates;
+		})	//Transform the response to only send back an object with lat and lng coordinates
+	);
 }
 
 //knowing city lat and lng, now REQUEST-PROMISE city weather
@@ -59,6 +65,8 @@ var cityInput = cityForm.querySelector('.city-input');
 var getWeatherButton = cityForm.querySelector('.get-weather-button');
 var cityWeather = app.querySelector('.city-weather');
 
+var location = '';
+
 //eventhandlers
 // //1. Wrong way to go about it. When user types in box and presses ENTER, get no result. Have to press button for event to happen. Have to change in HTML button type from "button" to "submit"
 // getWeatherButton.addEventListener('click', function(){
@@ -87,6 +95,9 @@ cityForm.addEventListener('submit', function(event){
 
 		cityWeather.innerText = "";
 
+		var address = document.createElement('h2');
+		address.innerText = location;
+
 		var temperature = document.createElement('p');
 		temperature.innerText = `Current temperature: ${weather.temperature}\xB0C`;
 
@@ -100,7 +111,7 @@ cityForm.addEventListener('submit', function(event){
 		var humidity = document.createElement('p');
 		humidity.innerText = `Humidity: ${weather.humidity}`;
 
-		var weatherData = [temperature, icon, windSpeed, humidity];
+		var weatherData = [address, temperature, icon, windSpeed, humidity];
 
 		weatherData.forEach(function(data){
 			app.appendChild(data);

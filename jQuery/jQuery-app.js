@@ -74,7 +74,7 @@
                 cityWeather.text('You need to enter a City to get weather. Try again!');
             } 
             else {
-            	console.log(cityWeather);
+            	// console.log(cityWeather);
                 cityWeather.empty();
 
                 cityWeather.text('loading...');
@@ -98,7 +98,7 @@
                     var weatherData = [address, temperature, icon, windSpeed, humidity];
 
                     weatherData.forEach(function(data) {
-                        cityWeather.append(data);
+                        app.append(data);
                     });
 
                 });

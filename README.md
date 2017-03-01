@@ -1,5 +1,7 @@
 Replicating the Weather App project found in https://github.com/DecodeMTL/vanilla-js-projects
 
+Demo available at https://melofunkcodes.github.io/vanilla-weather/
+
 DETAILS:
 
 ## Project #1: Weather App

@@ -90,6 +90,25 @@ How is this done?
     //  });
     // });
 
+    //GOOGLE AUTOCOMPLETE PART
+    function initialize() {
+
+        var autocomplete = new google.maps.places.Autocomplete(cityInput);
+
+        console.log("autocomplete called")
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    // var options = {
+    //     bounds: null,
+    //     types: ['cities']
+    // };
+
+    // autocomplete = new google.maps.places.Autocomplete(cityInput, options);
+
+
+
     //2. Better way to approach input box (listening to the whole form - input tag and button tag)
     //So whether user presses ENTER or clicks button, webpage will output temperature
     cityForm.addEventListener('submit', function(event) {

@@ -4,6 +4,9 @@ Replicating the Weather App project found in https://github.com/DecodeMTL/vanill
 
 Played around with Google's Material Design Colour Palette.
 
+Added Google Autocomplete to the input box. 
+(Note: BOTH Google Maps Javascript API and Google Places API Web Service need to be enabled!)
+
 Demo available at https://melofunkcodes.github.io/vanilla-weather/
 
 

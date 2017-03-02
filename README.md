@@ -1,6 +1,11 @@
+##Notes:
+
 Replicating the Weather App project found in https://github.com/DecodeMTL/vanilla-js-projects
 
+Played around with Google's Material Design Colour Palette.
+
 Demo available at https://melofunkcodes.github.io/vanilla-weather/
+
 
 DETAILS:
 

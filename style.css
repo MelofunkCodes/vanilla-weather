@@ -12,6 +12,7 @@ body {
 }
 
 #app {
+	max-width: 800px;
 	background-color: #80DEEA;
 	border-radius: 10%;
 	padding: 0.5em;
@@ -19,11 +20,14 @@ body {
 .main-app {
     max-width: 740px; /*Changed from 1000px*/
     margin: 0 auto;
-/*    display: flex; 
-    flex-wrap: wrap;*/
     background-color: #00bcd4; 
     padding: 0.5em;
     border-radius: 10%;
+}
+
+h1 {
+	font-family: 'Mrs Sheppards', cursive;
+	font-size: 3em;
 }
 
 input {
@@ -42,6 +46,24 @@ input {
 input:focus {
   outline: none;
   border: solid 5px #18FFFF;
+}
+
+button {
+	padding: 0.5em 2em;
+    color: #FFAB00;
+    background-color: #fff;
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    border: .2rem solid #FFAB00;
+    -webkit-transition: color .3s,border .3s;
+    transition: color .3s,border .3s;
+}
+button:hover{
+	color: #fff;
+    background-color: #FFAB00;
+    border-color: #FFAB00;
 }
 
 

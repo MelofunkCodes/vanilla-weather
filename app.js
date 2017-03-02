@@ -45,15 +45,26 @@ How is this done?
 
     }
 
-    //TO DO LATER
-    // function getSkycon(icon){
-    // 	// convert clear-day to "CLEAR_DAY"
+    function getSkycon(icon) {
+        // convert clear-day to "CLEAR_DAY"
+        /*
+        Logic
+        1. Take string argument, and separate/splice it based on hyphens into an array
+        2. map to new array variable .toUpperCase()
+        3. Join to new variable with underscore
+        4. Return that value
+        */
 
-    // 	Logic
-    // 	1. Take string argument, and separate/splice it based on hyphens into an array
-    // 	2. map to new array variable .toUpperCase()
-    // 	3. Join to new variable with underscore
-    // 	4. Return that value
+        var words = icon.split(/-/g); //splits words into an array and removes hyphen
+        var wordsArr = words.map(eachWord => eachWord.toUpperCase());
+
+        var reformatted = wordsArr.join("_");
+
+        return reformatted;
+
+    }
+
+
 
 
 
@@ -70,13 +81,13 @@ How is this done?
     //eventhandlers
     // //1. Wrong way to go about it. When user types in box and presses ENTER, get no result. Have to press button for event to happen. Have to change in HTML button type from "button" to "submit"
     // getWeatherButton.addEventListener('click', function(){
-    // 	var city = cityInput.value; //grab string of whatever user types into input box
+    //  var city = cityInput.value; //grab string of whatever user types into input box
 
-    // 	getCoordinatesForCity(city)
-    // 	.then(getCurrentWeather)
-    // 	.then(function(weather){
-    // 		cityWeather.innerText = 'Current temperature: ' + weather.temperature + '\xB0C';
-    // 	});
+    //  getCoordinatesForCity(city)
+    //  .then(getCurrentWeather)
+    //  .then(function(weather){
+    //      cityWeather.innerText = 'Current temperature: ' + weather.temperature + '\xB0C';
+    //  });
     // });
 
     //2. Better way to approach input box (listening to the whole form - input tag and button tag)
@@ -93,37 +104,45 @@ How is this done?
         cityWeather.innerText = "loading...";
 
         getCoordinatesForCity(city)
-        .then(getCurrentWeather)
-        .then(function(weather) {
-            console.log(weather);
+            .then(getCurrentWeather)
+            .then(function(weather) {
+                console.log(weather);
 
-            cityWeather.innerText = "";
+                //SKYCON SECTION
+                var skycons = new Skycons({ "color": "orange" });
 
-            var address = document.createElement('h2');
-            address.innerText = location;
+                console.log(`weather.icon: ${weather.icon}`); //string
+                // var icon = document.createElement('canvas');
+                // icon.setAttribute('id', 'icon1');
+                var message = getSkycon(weather.icon);
 
-            var temperature = document.createElement('p');
-            temperature.innerText = `Current temperature: ${weather.temperature}\xB0C`;
+                skycons.add(document.querySelector("#icon1"), Skycons[message]);
+                skycons.play();
 
-            console.log(`weather.icon: ${weather.icon}`); //string
-            var icon = document.createElement('p');
-            icon.innerText = `(display Climacons here) ${weather.icon}`;
 
-            var windSpeed = document.createElement('p');
-            windSpeed.innerText = `Wind Speed: ${weather.windSpeed} m/s`;
+                cityWeather.innerText = "";
 
-            var humidity = document.createElement('p');
-            humidity.innerText = `Humidity: ${weather.humidity}`;
+                var address = document.createElement('h2');
+                address.innerText = location;
 
-            var weatherData = [address, temperature, icon, windSpeed, humidity];
+                var temperature = document.createElement('p');
+                temperature.innerText = `Current temperature: ${weather.temperature}\xB0C`;
 
-            weatherData.forEach(function(data) {
-               	cityWeather.appendChild(data);
+
+                var windSpeed = document.createElement('p');
+                windSpeed.innerText = `Wind Speed: ${weather.windSpeed} m/s`;
+
+                var humidity = document.createElement('p');
+                humidity.innerText = `Humidity: ${weather.humidity}`;
+
+                var weatherData = [address, temperature, windSpeed, humidity];
+
+                weatherData.forEach(function(data) {
+                    cityWeather.appendChild(data);
+                });
+
+
             });
-
-
-            // cityWeather.innerText = 'Current temperature: ' + weather.temperature + '\xB0C';
-        });
     })
 
 })();
